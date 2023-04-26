@@ -1,10 +1,10 @@
 package org.acme;
 
+import jakarta.ws.rs.*;
 import org.acme.pojo.Person;
 
-import javax.inject.Inject;
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
+import jakarta.inject.Inject;
+import jakarta.ws.rs.core.MediaType;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
