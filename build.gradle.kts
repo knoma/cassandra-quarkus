@@ -15,19 +15,19 @@ val quarkusPlatformVersion: String by project
 dependencies {
     implementation(enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}"))
     implementation(enforcedPlatform("${quarkusPlatformGroupId}:quarkus-cassandra-bom:${quarkusPlatformVersion}"))
+    implementation("io.quarkus:quarkus-resteasy-reactive-jackson")
+    implementation("com.datastax.oss.quarkus:cassandra-quarkus-client")
+    implementation("io.quarkus:quarkus-resteasy-reactive")
+    implementation("io.quarkus:quarkus-arc")
 
     implementation("com.datastax.oss:java-driver-mapper-runtime:+")
     annotationProcessor("com.datastax.oss.quarkus:cassandra-quarkus-mapper-processor:+")
 
-    implementation("com.datastax.oss.quarkus:cassandra-quarkus-client")
-    implementation("io.quarkus:quarkus-resteasy-reactive")
-    implementation("io.quarkus:quarkus-resteasy-reactive-jackson")
-    implementation("io.quarkus:quarkus-arc")
     testImplementation("io.quarkus:quarkus-junit5")
     testImplementation("io.rest-assured:rest-assured")
 }
 
-group = "org.acme"
+group = "com.knoma"
 version = "1.0.0-SNAPSHOT"
 
 java {

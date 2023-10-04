@@ -1,9 +1,8 @@
-package org.acme;
+package com.knoma;
 
 import com.datastax.oss.driver.api.core.PagingIterable;
-import com.datastax.oss.driver.api.core.cql.ResultSet;
 import com.datastax.oss.driver.api.mapper.annotations.*;
-import org.acme.pojo.Person;
+import com.knoma.pojo.Person;
 
 import java.util.UUID;
 

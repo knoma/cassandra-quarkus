@@ -1,7 +1,7 @@
-package org.acme;
+package com.knoma;
 
-import org.acme.pojo.Person;
 
+import com.knoma.pojo.Person;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import java.util.List;

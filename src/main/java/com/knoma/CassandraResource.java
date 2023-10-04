@@ -1,4 +1,4 @@
-package org.acme;
+package com.knoma;
 
 import com.datastax.oss.driver.api.core.cql.ResultSet;
 import com.datastax.oss.quarkus.runtime.api.session.QuarkusCqlSession;
@@ -21,7 +21,7 @@ public class CassandraResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Map<String, String> hello() {
 
-        ResultSet execute = session.execute("SELECT cql_version FROM system.local;");
+        ResultSet execute = session.execute("SELECT release_version FROM system.local;");
         return Map.of("version", execute.one().getString(0));
     }
 }

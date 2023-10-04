@@ -1,7 +1,7 @@
-package org.acme;
+package com.knoma;
 
+import com.knoma.pojo.Person;
 import jakarta.ws.rs.*;
-import org.acme.pojo.Person;
 
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.MediaType;
