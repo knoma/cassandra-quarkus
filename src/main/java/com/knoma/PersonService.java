@@ -2,37 +2,39 @@ package com.knoma;
 
 
 import com.knoma.pojo.Person;
+import io.smallrye.mutiny.Multi;
+import io.smallrye.mutiny.Uni;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import java.util.List;
+
 import java.util.UUID;
 
 @ApplicationScoped
 public class PersonService {
-    PersonDAO personDAO;
+    private final PersonDAO personDAO;
 
     @Inject
     public PersonService(PersonDAO personDAO) {
         this.personDAO = personDAO;
     }
 
-    public void save(Person person) {
-        personDAO.update(person);
+    public Uni<Void> saveReactive(Person person) {
+        return Uni.createFrom().voidItem().invoke(() -> personDAO.update(person));
     }
 
-    public List<Person> getAll() {
-        return personDAO.findAll().all();
+    public Multi<Person> getAllReactive() {
+        return Multi.createFrom().iterable(personDAO.findAll());
     }
 
-    public Person getById(UUID id) {
-        return personDAO.getById(id);
+    public Uni<Person> getByIdReactive(UUID id) {
+        return Uni.createFrom().item(() -> personDAO.getById(id));
     }
 
-    public void delete(UUID id) {
-        personDAO.delete(id);
+    public Uni<Void> deleteReactive(UUID id) {
+        return Uni.createFrom().voidItem().invoke(() -> personDAO.delete(id));
     }
 
-    public Long getCount() {
-        return personDAO.count();
+    public Uni<Long> getCountReactive() {
+        return Uni.createFrom().item(() -> personDAO.count());
     }
 }

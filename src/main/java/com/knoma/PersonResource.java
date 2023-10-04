@@ -1,18 +1,19 @@
 package com.knoma;
 
 import com.knoma.pojo.Person;
+import io.smallrye.mutiny.Multi;
+import io.smallrye.mutiny.Uni;
 import jakarta.ws.rs.*;
 
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.MediaType;
 import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.ExecutionException;
 
 @Path("/person")
 public class PersonResource {
 
-    PersonService personService;
+    private final PersonService personService;
 
     @Inject
     public PersonResource(PersonService personService) {
@@ -22,35 +23,35 @@ public class PersonResource {
     @GET
     @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
-    public Iterable<Person> all() throws ExecutionException, InterruptedException {
-        return personService.getAll();
+    public Multi<Person> all() {
+        return personService.getAllReactive();
     }
 
     @GET
     @Path("/count")
     @Produces(MediaType.APPLICATION_JSON)
-    public Map<String, Long> count() throws ExecutionException, InterruptedException {
-        return Map.of("count", personService.getCount());
+    public Uni<Map<String, Long>> count() {
+        return personService.getCountReactive().map(count -> Map.of("count", count));
     }
 
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Person getById(@PathParam("id") UUID id) throws ExecutionException, InterruptedException {
-        return personService.getById(id);
+    public Uni<Person> getById(@PathParam("id") UUID id) {
+        return personService.getByIdReactive(id);
     }
 
     @DELETE
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public void delete(@PathParam("id") UUID id) throws ExecutionException, InterruptedException {
-        personService.delete(id);
+    public Uni<Void> delete(@PathParam("id") UUID id) {
+        return personService.deleteReactive(id);
     }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public void save(Person person) {
-        personService.save(person);
+    public Uni<Void> save(Person person) {
+        return personService.saveReactive(person);
     }
 }
